@@ -12,7 +12,7 @@ class ProblemViewModel(
 ) : ViewModel() {
 
     fun getProblems() = flow {
-        Log.i("ARTTAG", "artist view model getArtists")
+        Log.i("TAG", "view model getProblems")
         val problemsList = getProblemsUseCase.execute()
         emit(problemsList)
     }

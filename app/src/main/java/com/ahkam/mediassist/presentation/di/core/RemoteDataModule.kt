@@ -15,9 +15,9 @@ import javax.inject.Singleton
 class RemoteDataModule() {
     @Singleton
     @Provides
-    fun provideArtistRemoteDataSource(mediService: MediService): ProblemRemoteDatasource {
+    fun provideProblemRemoteDataSource(mediService: MediService): ProblemRemoteDatasource {
         return ProblemRemoteDataSourceImpl(
-            mediService, BuildConfig.API_KEY
+            mediService
         )
     }
 

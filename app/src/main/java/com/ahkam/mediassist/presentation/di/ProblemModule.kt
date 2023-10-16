@@ -14,7 +14,7 @@ import dagger.hilt.android.scopes.ActivityScoped
 class ProblemModule {
     @ActivityScoped
     @Provides
-    fun provideArtistViewModelFactory(
+    fun provideProblemViewModelFactory(
         getProblemsUseCase: GetProblemsUseCase,
         updateProblemsUseCase: UpdateProblemsUseCase
     ): ProblemViewModelFactory {

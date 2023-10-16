@@ -1,5 +1,6 @@
 package com.ahkam.mediassist.presentation.di.core
 
+import com.ahkam.mediassist.BuildConfig
 import com.ahkam.mediassist.data.api.MediService
 import dagger.Module
 import dagger.Provides
@@ -18,7 +19,7 @@ class NetModule() {
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("")
+            .baseUrl(BuildConfig.BASE_URL)
             .build()
     }
 

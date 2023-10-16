@@ -6,9 +6,8 @@ import com.ahkam.mediassist.data.repository.datasource.ProblemRemoteDatasource
 import retrofit2.Response
 
 class ProblemRemoteDataSourceImpl(
-    private val mediService: MediService,
-    private val apiKey: String
+    private val mediService: MediService
 ) : ProblemRemoteDatasource {
     override suspend fun getProblems(): Response<ProblemsResponse> =
-        mediService.getProblemsList(apiKey)
+        mediService.getProblemsList()
 }

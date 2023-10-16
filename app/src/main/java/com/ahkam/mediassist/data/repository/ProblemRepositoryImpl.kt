@@ -15,7 +15,7 @@ class ProblemRepositoryImpl(
 ) : ProblemRepository {
 
     override suspend fun getProblems(): List<ProblemsResponse.Problems>? {
-        Log.i("ARTTAG", "artist repository impl getArtists")
+        Log.i("TAG", "problem repository impl getProblem")
         return getProblemsFromCache()
     }
 
@@ -29,17 +29,17 @@ class ProblemRepositoryImpl(
 
 
     suspend fun getProblemsFromAPI(): List<ProblemsResponse.Problems> {
-        lateinit var artistList: List<ProblemsResponse.Problems>
+        lateinit var problemList: List<ProblemsResponse.Problems>
         try {
             val response = problemRemoteDatasource.getProblems()
             val body = response.body()
             if (body != null) {
-                artistList = body.problems
+                problemList = body.problems
             }
         } catch (exception: Exception) {
             Log.i("MyTag", exception.message.toString())
         }
-        return artistList
+        return problemList
     }
 
     suspend fun getProblemsFromDB(): List<ProblemsResponse.Problems> {

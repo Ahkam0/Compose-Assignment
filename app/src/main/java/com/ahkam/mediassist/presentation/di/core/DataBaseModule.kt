@@ -2,6 +2,7 @@ package com.ahkam.mediassist.presentation.di.core
 
 import android.app.Application
 import androidx.room.Room
+import com.ahkam.mediassist.data.db.Converter
 import com.ahkam.mediassist.data.db.MediAssistDatabase
 import com.ahkam.mediassist.data.db.ProblemsDAO
 import dagger.Module
@@ -17,6 +18,7 @@ class DataBaseModule {
     @Provides
     fun provideProblemDataBase(app: Application): MediAssistDatabase {
         return Room.databaseBuilder(app, MediAssistDatabase::class.java, "mediassist")
+            .addTypeConverter(Converter())
             .build()
     }
 

@@ -6,12 +6,12 @@ import androidx.room.TypeConverters
 import com.ahkam.mediassist.data.model.ProblemsResponse
 
 
+@TypeConverters(Converter::class)
 @Database(
     entities = [ProblemsResponse.Problems::class],
     version = 1,
     exportSchema = false
 )
-@TypeConverters(value = arrayOf(DiabetesConverter::class, AsthmaConverter::class))
 abstract class MediAssistDatabase : RoomDatabase() {
     abstract fun problemDao(): ProblemsDAO
 

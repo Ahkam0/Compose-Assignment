@@ -13,12 +13,12 @@ import dagger.hilt.components.SingletonComponent
 class UseCaseModule {
 
     @Provides
-    fun provideGetArtistUseCase(problemRepository: ProblemRepository): GetProblemsUseCase {
+    fun provideGetProblemUseCase(problemRepository: ProblemRepository): GetProblemsUseCase {
         return GetProblemsUseCase(problemRepository)
     }
 
     @Provides
-    fun provideUpdateArtistUseCase(problemRepository: ProblemRepository): UpdateProblemsUseCase {
+    fun provideUpdateProblemUseCase(problemRepository: ProblemRepository): UpdateProblemsUseCase {
         return UpdateProblemsUseCase(problemRepository)
     }
 
