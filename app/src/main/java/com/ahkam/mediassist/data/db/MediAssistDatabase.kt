@@ -11,6 +11,6 @@ import com.ahkam.mediassist.data.model.ProblemsResponse
     exportSchema = false
 )
 abstract class MediAssistDatabase : RoomDatabase() {
-    abstract fun movieDao(): ProblemsResponse.Problems
+    abstract fun problemDao(): ProblemsDAO
 
 }
