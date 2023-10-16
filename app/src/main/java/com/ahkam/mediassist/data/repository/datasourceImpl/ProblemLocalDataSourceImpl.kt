@@ -7,21 +7,21 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ProblemLocalDataSourceImpl(private val problemDao: ProblemsDAO) : ProblemLocalDataSource {
+class ProblemLocalDataSourceImpl(private val problemsDao: ProblemsDAO) : ProblemLocalDataSource {
 
     override suspend fun getProblemsFromDB(): List<ProblemsResponse.Problems> {
-        return problemDao.getProblems()
+        return problemsDao.getProblems()
     }
 
     override suspend fun saveProblemsToDB(problems: List<ProblemsResponse.Problems>) {
         CoroutineScope(Dispatchers.IO).launch {
-            problemDao.saveProblems(problems)
+            problemsDao.saveProblems(problems)
         }
     }
 
     override suspend fun clearAll() {
         CoroutineScope(Dispatchers.IO).launch {
-            problemDao.deleteAllProblems()
+            problemsDao.deleteAllProblems()
         }
     }
 }

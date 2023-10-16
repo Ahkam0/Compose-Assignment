@@ -15,14 +15,14 @@ import javax.inject.Singleton
 class DataBaseModule {
     @Singleton
     @Provides
-    fun provideMovieDataBase(app: Application): MediAssistDatabase {
+    fun provideProblemDataBase(app: Application): MediAssistDatabase {
         return Room.databaseBuilder(app, MediAssistDatabase::class.java, "mediassist")
             .build()
     }
 
     @Singleton
     @Provides
-    fun provideMovieDao(mediAssistDatabase: MediAssistDatabase): ProblemsDAO {
+    fun provideProblemDao(mediAssistDatabase: MediAssistDatabase): ProblemsDAO {
         return mediAssistDatabase.problemDao()
     }
 

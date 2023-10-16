@@ -1,24 +1,22 @@
 package com.ahkam.mediassist.data.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
 
 data class ProblemsResponse(
-
-    @SerializedName("problems")
     val problems: List<Problems>
 ) {
 
-    @Entity(tableName = "tbl_problems")
+    @Entity(tableName = "tbl_problem")
     data class Problems(
         @PrimaryKey
-        @SerializedName("id")
+        @ColumnInfo(name = "id")
         val id: Int,
-        @SerializedName("diabetes")
-        val diabetes: List<Diabetes>,
-        @SerializedName("asthma")
-        val asthma: List<Asthma>
+        @ColumnInfo(name = "diabetes")
+        val diabetes: List<Diabetes>? = null,
+        @ColumnInfo(name = "asthma")
+        val asthma: List<Asthma>? = null
     )
 
     data class MedicationsClasses(
