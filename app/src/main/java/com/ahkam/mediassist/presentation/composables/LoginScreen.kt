@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
@@ -35,6 +36,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import com.ahkam.mediassist.MainActivity
 import com.ahkam.mediassist.R
 import com.ahkam.mediassist.destinations.HomeDestination
 import com.ahkam.mediassist.destinations.LoginDestination
@@ -48,9 +52,9 @@ import com.ahkam.mediassist.ui.theme.popinsFamily
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
-    navController: NavHostController,
-    problemViewModel: ProblemViewModel = hiltViewModel()
+    navController: NavHostController
 ) {
+    val activity = LocalContext.current as MainActivity
 
     Column(
         modifier = Modifier
@@ -97,7 +101,7 @@ fun LoginScreen(
                 mutableStateOf("")
             }
 
-            val passValue by remember {
+            var passValue by remember {
                 mutableStateOf("")
             }
 
@@ -146,9 +150,9 @@ fun LoginScreen(
             )
 
             OutlinedTextField(
-                value = userValue,
+                value = passValue,
                 onValueChange = { newText ->
-                    userValue = newText
+                    passValue = newText
                 },
                 label = {
                     Text(
@@ -173,13 +177,13 @@ fun LoginScreen(
 
             Button(
                 onClick = {
-                    problemViewModel.setUsername(userValue)
-                    problemViewModel.setPassword(passValue)
-                    navController.navigate(HomeDestination.route()) {
+                    activity.myUserName = userValue
+                    navController.navigate(HomeDestination.route() ) {
                         popUpTo(LoginDestination.route()) {
                             inclusive = true
                         }
                     }
+
                 },
                 modifier = Modifier
                     .padding(0.dp, 20.dp, 0.dp, 0.dp)

@@ -1,12 +1,15 @@
 package com.ahkam.mediassist.presentation.viewmodel
 
 import android.util.Log
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.ahkam.mediassist.domain.usecase.GetProblemsUseCase
 import com.ahkam.mediassist.domain.usecase.UpdateProblemsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -14,11 +17,8 @@ import javax.inject.Inject
 class ProblemViewModel @Inject constructor(
     private val getProblemsUseCase: GetProblemsUseCase,
     private val updateProblemsUseCase: UpdateProblemsUseCase
-) : ViewModel() {
-
-    val username: MutableState<String> = mutableStateOf("Anonymous")
-    val password: MutableState<String> = mutableStateOf("")
-
+) : ViewModel()
+{
 
     fun getProblems() = flow {
         Log.i("TAG", "view model getProblems")
@@ -31,12 +31,5 @@ class ProblemViewModel @Inject constructor(
         emit(problemsList)
     }
 
-    fun setUsername(value: String) {
-        username.value = value
-    }
-
-    fun setPassword(value: String) {
-        password.value = value
-    }
 
 }
