@@ -3,19 +3,28 @@ package com.ahkam.mediassist
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.ahkam.mediassist.destinations.DetailDestination
+import com.ahkam.mediassist.destinations.HomeDestination
+import com.ahkam.mediassist.destinations.LoginDestination
+import com.ahkam.mediassist.destinations.SplashDestination
+import com.ahkam.mediassist.navigation.Navigator
+import com.ahkam.mediassist.navigation.NavigatorDestination
+import com.ahkam.mediassist.navigation.NavigatorEvent
+import com.ahkam.mediassist.presentation.composables.DetailScreen
+import com.ahkam.mediassist.presentation.composables.HomeScreen
+import com.ahkam.mediassist.presentation.composables.LoginScreen
+import com.ahkam.mediassist.presentation.composables.SplashScreen
 import com.ahkam.mediassist.presentation.viewmodel.ProblemViewModel
 import com.ahkam.mediassist.presentation.viewmodel.ProblemViewModelFactory
 import com.ahkam.mediassist.ui.theme.MediAssistTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -25,43 +34,49 @@ class MainActivity : ComponentActivity() {
     lateinit var factory: ProblemViewModelFactory
     private lateinit var problemViewModel: ProblemViewModel
 
+    @Inject
+    lateinit var navigator: Navigator
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         problemViewModel = ViewModelProvider(this, factory)[ProblemViewModel::class.java]
 
-
         setContent {
+
+            val navController = rememberNavController()
+
             MediAssistTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                LaunchedEffect(navController) {
+                    navigator.destinations.collectLatest {
+                        when (val event = it) {
+                            is NavigatorEvent.NavigateUp -> navController.navigateUp()
+                            is NavigatorEvent.PopBackStack -> navController.popBackStack()
+                            is NavigatorEvent.Directions -> navController.navigate(
+                                event.destination, event.builder
+                            )
+                        }
+                    }
+                }
+
+                val composableDestinations: Map<NavigatorDestination, @Composable () -> Unit> =
+                    mapOf(
+                        SplashDestination to { SplashScreen(navController) },
+                        LoginDestination to { LoginScreen() },
+                        HomeDestination to { HomeScreen() },
+                        DetailDestination to { DetailScreen() }
+                    )
+
+                NavHost(
+                    navController = navController,
+                    startDestination = SplashDestination.route()
                 ) {
-
-                    val problems =
-                        problemViewModel.getProblems().collectAsState(initial = null).value
-
-                    problems?.get(0)?.diabetes?.get(0)?.medications?.get(0)?.medicationsClasses?.get(0)?.className2?.get(0)?.associatedDrug2?.get(0)?.name?.let {
-                        Greeting(
-                            it
-                        )
+                    composableDestinations.forEach { entry ->
+                        val destination = entry.key
+                        composable(destination.route(), destination.arguments) { entry.value() }
                     }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MediAssistTheme {
-        Greeting("Android")
     }
 }
