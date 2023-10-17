@@ -4,9 +4,12 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.ahkam.mediassist.domain.usecase.GetProblemsUseCase
 import com.ahkam.mediassist.domain.usecase.UpdateProblemsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class ProblemViewModel(
+@HiltViewModel
+class ProblemViewModel @Inject constructor(
     private val getProblemsUseCase: GetProblemsUseCase,
     private val updateProblemsUseCase: UpdateProblemsUseCase
 ) : ViewModel() {

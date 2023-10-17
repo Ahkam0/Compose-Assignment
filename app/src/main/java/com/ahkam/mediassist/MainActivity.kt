@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -20,8 +19,6 @@ import com.ahkam.mediassist.presentation.composables.DetailScreen
 import com.ahkam.mediassist.presentation.composables.HomeScreen
 import com.ahkam.mediassist.presentation.composables.LoginScreen
 import com.ahkam.mediassist.presentation.composables.SplashScreen
-import com.ahkam.mediassist.presentation.viewmodel.ProblemViewModel
-import com.ahkam.mediassist.presentation.viewmodel.ProblemViewModelFactory
 import com.ahkam.mediassist.ui.theme.MediAssistTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -31,16 +28,10 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
 
     @Inject
-    lateinit var factory: ProblemViewModelFactory
-    private lateinit var problemViewModel: ProblemViewModel
-
-    @Inject
     lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        problemViewModel = ViewModelProvider(this, factory)[ProblemViewModel::class.java]
 
         setContent {
 
@@ -62,8 +53,8 @@ class MainActivity : ComponentActivity() {
                 val composableDestinations: Map<NavigatorDestination, @Composable () -> Unit> =
                     mapOf(
                         SplashDestination to { SplashScreen(navController) },
-                        LoginDestination to { LoginScreen() },
-                        HomeDestination to { HomeScreen() },
+                        LoginDestination to { LoginScreen(navController) },
+                        HomeDestination to { HomeScreen(navController) },
                         DetailDestination to { DetailScreen() }
                     )
 

@@ -1,10 +1,14 @@
 package com.ahkam.mediassist.presentation.composables
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import com.ahkam.mediassist.presentation.viewmodel.ProblemViewModel
 
-@Preview
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    navController: NavHostController,
+    problemViewModel: ProblemViewModel = hiltViewModel()
+) {
 
 }
