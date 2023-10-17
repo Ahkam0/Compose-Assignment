@@ -8,6 +8,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.ahkam.mediassist.data.model.ProblemsResponse
 import com.ahkam.mediassist.destinations.DetailDestination
 import com.ahkam.mediassist.destinations.HomeDestination
 import com.ahkam.mediassist.destinations.LoginDestination
@@ -31,6 +32,9 @@ class MainActivity : ComponentActivity() {
     lateinit var navigator: Navigator
 
     var myUserName: String = ""
+    lateinit var selectedD: List<ProblemsResponse.Diabetes>
+    lateinit var selectedA: List<ProblemsResponse.Asthma>
+    var selectedItem = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

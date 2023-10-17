@@ -8,4 +8,6 @@
     <string name="sign_in">Sign In</string>
     <string name="greetings">Greetings</string>
     <string name="doses">  |  Doses  |  </string>
+    <string name="asthma">Asthma</string>
+    <string name="diabetes">Diabetes</string>
 </resources>
