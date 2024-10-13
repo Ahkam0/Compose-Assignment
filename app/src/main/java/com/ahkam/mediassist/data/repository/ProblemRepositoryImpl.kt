@@ -30,6 +30,7 @@ class ProblemRepositoryImpl(
 
     suspend fun getProblemsFromAPI(): List<ProblemsResponse.Problems> {
         lateinit var problemList: List<ProblemsResponse.Problems>
+        problemList = ArrayList()
         try {
             val response = problemRemoteDatasource.getProblems()
             val body = response.body()
@@ -44,6 +45,7 @@ class ProblemRepositoryImpl(
 
     suspend fun getProblemsFromDB(): List<ProblemsResponse.Problems> {
         lateinit var problemList: List<ProblemsResponse.Problems>
+        problemList = ArrayList()
         try {
             problemList = problemLocalDataSource.getProblemsFromDB()
         } catch (exception: Exception) {
@@ -61,6 +63,7 @@ class ProblemRepositoryImpl(
 
     suspend fun getProblemsFromCache(): List<ProblemsResponse.Problems> {
         lateinit var problemList: List<ProblemsResponse.Problems>
+        problemList = ArrayList()
         try {
             problemList = problemCacheDataSource.getProblemsFromCache()
         } catch (exception: Exception) {
