@@ -30,19 +30,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import com.ahkam.mediassist.MainActivity
 import com.ahkam.mediassist.R
 import com.ahkam.mediassist.destinations.HomeDestination
 import com.ahkam.mediassist.destinations.LoginDestination
-import com.ahkam.mediassist.presentation.viewmodel.ProblemViewModel
 import com.ahkam.mediassist.ui.theme.Blue200
 import com.ahkam.mediassist.ui.theme.Blue600
 import com.ahkam.mediassist.ui.theme.Purple200
@@ -146,7 +143,8 @@ fun LoginScreen(
                         fontFamily = popinsFamily,
                     )
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
             )
 
             OutlinedTextField(
@@ -172,13 +170,23 @@ fun LoginScreen(
                         fontFamily = popinsFamily,
                     )
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                visualTransformation = PasswordVisualTransformation()
             )
 
             Button(
                 onClick = {
                     activity.myUserName = userValue
-                    navController.navigate(HomeDestination.route() ) {
+                    navController.navigate(
+                        HomeDestination.createHomeRoute(
+                            if (userValue.isNotEmpty()) {
+                                userValue
+                            } else {
+                                "Anonymous"
+                            }
+                        )
+                    ) {
                         popUpTo(LoginDestination.route()) {
                             inclusive = true
                         }

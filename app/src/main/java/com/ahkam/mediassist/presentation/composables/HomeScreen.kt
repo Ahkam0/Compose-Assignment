@@ -60,6 +60,7 @@ import com.ahkam.mediassist.ui.theme.Gray200
 import com.ahkam.mediassist.ui.theme.LoginGray
 import com.ahkam.mediassist.ui.theme.popinsFamily
 import com.ahkam.mediassist.utils.DateTimeUtilityJava
+import com.google.gson.Gson
 
 @Composable
 fun HomeScreen(
@@ -78,7 +79,7 @@ fun HomeScreen(
     ) {
 
         Header(
-            activity.myUserName.ifEmpty {
+            problemViewModel.uiState.userName.ifEmpty {
                 "Anonymous"
             }
         )
@@ -269,7 +270,7 @@ fun Header(value: String) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(94.dp)
+                .height(110.dp)
         ) {
             AndroidView(
                 modifier = Modifier.fillMaxSize(),
@@ -294,7 +295,7 @@ fun Header(value: String) {
                     Icon(
                         painter = painterResource(id = R.drawable.icon_search_home),
                         contentDescription = "None",
-                        tint = Color.Unspecified, modifier = Modifier.padding(0.dp)
+                        tint = Color.Unspecified, modifier = Modifier.padding(0.dp),
                     )
 
                 }
@@ -357,7 +358,7 @@ fun Header(value: String) {
                     DateTimeUtilityJava.getTime(System.currentTimeMillis()),
             textAlign = TextAlign.Start,
             maxLines = 1,
-            color = Gray200,
+            color = LoginGray,
             style = TextStyle(
                 platformStyle = PlatformTextStyle(
                     includeFontPadding = false,

@@ -21,7 +21,7 @@ android {
             useSupportLibrary true
         }
 
-        buildConfigField "String","API_KEY","\"d0d6067a-3c47-40da-a9e9-5eb8cdbec509\""
+        buildConfigField "String","API_KEY","\"fc85c7f2-d69e-4005-b921-91c53810e658\""
         buildConfigField "String","BASE_URL","\"https://run.mocky.io\""
     }
 

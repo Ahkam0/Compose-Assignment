@@ -24,13 +24,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.ahkam.mediassist.MainActivity
 import com.ahkam.mediassist.R
+import com.ahkam.mediassist.presentation.viewmodel.ProblemDetailsViewModel
 
 
 @Preview
 @Composable
-fun DetailScreen() {
+fun DetailScreen(
+    problemViewModel: ProblemDetailsViewModel = hiltViewModel()) {
 
     val activity = LocalContext.current as MainActivity
 
@@ -39,7 +42,7 @@ fun DetailScreen() {
         Card(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(10.dp, 50.dp, 10.dp, 10.dp)
+                .padding(10.dp, 50.dp, 10.dp, 70.dp)
                 .shadow(10.dp, shape = RoundedCornerShape(corner = CornerSize(10.dp)))
         ) {
 
